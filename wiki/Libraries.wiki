@@ -62,7 +62,7 @@ Every object has it's own index. The index is incrementing globally = the object
   }
   TServerBeforeRemoveConnectionLib = procedure (Server: integer; aConnection: integer); stdcall;
 
-  {:callback trigger on server's socker error
+  {:callback trigger on server''s socker error
     @param integer Server Server index 
     @param integer Error Socket error
     @param pChar ErrorDescr Socket error description
