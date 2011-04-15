@@ -289,3 +289,9 @@ Fields are:
   * !ClientConnectionSendData: TClientConnectionSendData
 
 Function type represents function interface (parameters)
+
+=Notice=
+Server and connections are working in threads. Library itself has no GUI so there is no synchronization on library side. Client should create its own GUI synchronization.
+
+=Request=
+It would be nice if anyone, who can rewrite library interface to another language (C, C++, etc.) would send it to me so I can publish it here.
