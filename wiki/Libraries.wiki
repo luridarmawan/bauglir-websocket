@@ -1,9 +1,24 @@
-.
-
 #summary Library interface description
 
 = Introduction =
 Project contains compiled libraries (in demos projects for Windows and Linux)
+
+=Objects=
+There are 3 types ob object available:
+<dl>
+  <dt>server</dt>
+  <dd>Server listening for incoming connections.</dd>
+  <dt>server connection</dt>
+  <dd>WebSocket connection on server side.</dd>
+  <dt>client connection</dt>
+  <dd>WebSocket connection on client side.</dd>
+</dl>
+
+If you want to create WebSocket server, you will work with *server* and *server connection* objects. Each server is than have it's own list of server connections.
+
+If you want to create WebSocket connection to connect to remote server, you will work with *client connection* objects.
+
+Every object has it's own index. The index is incrementing globally = the object index is unique across all types of objects.
 
 
 = Types =
@@ -21,22 +36,37 @@ Project contains compiled libraries (in demos projects for Windows and Linux)
   TConnectionEventLib = procedure(Connection: Integer); stdcall;
 
 
-  {:callback trigger after connection is established to server 
+
+  {:callback trigger after connection is added to server 
     @param integer Server Server index 
     @param integer aConnection Connection index
   }
   TServerAfterAddConnectionLib = procedure (Server: integer; aConnection: integer); stdcall;
 
-  {:callback see @link(TServerBeforeAddConnection)}
+  {:callback trigger before connection is added to server
+    @param integer Server Server index 
+    @param integer aConnection Connection index
+    @param bool CanAdd If true, connection can be added. If false, connection is closed
+  }
   TServerBeforeAddConnectionLib = procedure (Server: integer; aConnection: integer; var CanAdd: boolean); stdcall;
 
-  {:callback see @link(TServerAfterRemoveConnection)}
+  {:callback trigger after connection is removed from server
+    @param integer Server Server index 
+    @param integer aConnection Connection index
+  }
   TServerAfterRemoveConnectionLib = procedure (Server: integer; aConnection: integer); stdcall;
 
-  {:callback see @link(TServerBeforeRemoveConnection)}
+  {:callback trigger before connection is removed from server 
+    @param integer Server Server index 
+    @param integer aConnection Connection index
+  }
   TServerBeforeRemoveConnectionLib = procedure (Server: integer; aConnection: integer); stdcall;
 
-  {:callback see @link(TServerSocketError)}
+  {:callback trigger on server's socker error
+    @param integer Server Server index 
+    @param integer Error Socket error
+    @param pChar ErrorDescr Socket error description
+  }
   TServerSocketErrorLib = procedure (Server: integer; Error: integer; ErrorDescr: pChar); stdcall;
 
 
