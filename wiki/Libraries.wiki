@@ -1,3 +1,5 @@
+.
+
 #summary Library interface description
 
 = Introduction =
@@ -7,19 +9,33 @@ Project contains compiled libraries (in demos projects for Windows and Linux)
 = Types =
 
 {{{
-  {:callback for WebSocket connection OnData event}
+  {:callback for WebSocket connection event, triggered when data are recevied
+    @param integer Connection Connection index
+    @param pChar aData Received data
+  }
   TConnectionDataLib = procedure(Connection: integer; aData: pChar); stdcall;
-  {:callback for WebSocket connection TNotifyEvent type events }
+
+  {:callback for WebSocket connection custom events 
+    @param integer Connection Connection index
+  }
   TConnectionEventLib = procedure(Connection: Integer); stdcall;
 
-  {:callback see @link(TServerAfterAddConnection)}
+
+  {:callback trigger after connection is established to server 
+    @param integer Server Server index 
+    @param integer aConnection Connection index
+  }
   TServerAfterAddConnectionLib = procedure (Server: integer; aConnection: integer); stdcall;
+
   {:callback see @link(TServerBeforeAddConnection)}
   TServerBeforeAddConnectionLib = procedure (Server: integer; aConnection: integer; var CanAdd: boolean); stdcall;
+
   {:callback see @link(TServerAfterRemoveConnection)}
   TServerAfterRemoveConnectionLib = procedure (Server: integer; aConnection: integer); stdcall;
+
   {:callback see @link(TServerBeforeRemoveConnection)}
   TServerBeforeRemoveConnectionLib = procedure (Server: integer; aConnection: integer); stdcall;
+
   {:callback see @link(TServerSocketError)}
   TServerSocketErrorLib = procedure (Server: integer; Error: integer; ErrorDescr: pChar); stdcall;
 
@@ -80,7 +96,8 @@ Project contains compiled libraries (in demos projects for Windows and Linux)
   {:library function to close connection}
   TClientConnectionInfo = function(aIndex: integer): boolean; stdcall;
   {:library function to open connection}
-  TClientConnectionOpen = function(aOrigin, aHost, aPort, aResource, aProtocol: pChar; aWebSocketType: integer): integer; stdcall;
+  TClientConnectionOpen = function(aOrigin, aHost, aPort, aResource, aProtocol: pChar; 
+     aWebSocketType: integer): integer; stdcall;
   {:library function to send data to connection}
   TClientConnectionSendData = function(aIndex: integer; aData: pChar): boolean; stdcall;
 
