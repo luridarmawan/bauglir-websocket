@@ -1,0 +1,87 @@
+#summary Library interface description
+
+= Introduction =
+Project contains compiled libraries (in demos projects for Windows and Linux)
+
+
+= Types =
+
+{{{
+  {:callback for WebSocket connection OnData event}
+  TConnectionDataLib = procedure(Connection: integer; aData: pChar); stdcall;
+  {:callback for WebSocket connection TNotifyEvent type events }
+  TConnectionEventLib = procedure(Connection: Integer); stdcall;
+
+  {:callback see @link(TServerAfterAddConnection)}
+  TServerAfterAddConnectionLib = procedure (Server: integer; aConnection: integer); stdcall;
+  {:callback see @link(TServerBeforeAddConnection)}
+  TServerBeforeAddConnectionLib = procedure (Server: integer; aConnection: integer; var CanAdd: boolean); stdcall;
+  {:callback see @link(TServerAfterRemoveConnection)}
+  TServerAfterRemoveConnectionLib = procedure (Server: integer; aConnection: integer); stdcall;
+  {:callback see @link(TServerBeforeRemoveConnection)}
+  TServerBeforeRemoveConnectionLib = procedure (Server: integer; aConnection: integer); stdcall;
+  {:callback see @link(TServerSocketError)}
+  TServerSocketErrorLib = procedure (Server: integer; Error: integer; ErrorDescr: pChar); stdcall;
+
+
+
+  {:library client intialize function with callbacks}
+  TLibraryInitClient = procedure(
+    aCcc: TConnectionEventLib; //client connection onconnect
+    aCcd: TConnectionDataLib; //client connection ondata
+    aCcx: TConnectionEventLib; //client connection ondisconnect
+    aCch: TConnectionEventLib; //client connection onhandshake
+    aCcr: TConnectionEventLib; //client connection onreaddata
+    aCcs: TConnectionEventLib; //client connection onsenddata
+    aCci: TConnectionDataLib //client connection info
+
+  ); stdcall;
+
+  {:library server intialize function with callbacks}
+  TLibraryInitServer = procedure(
+    aSaac: TServerAfterAddConnectionLib;
+    aSbac: TServerBeforeAddConnectionLib;
+    aSarc: TServerAfterRemoveConnectionLib;
+    aSbrc: TServerBeforeRemoveConnectionLib;
+    aSse: TServerSocketErrorLib;
+
+    aScd: TConnectionDataLib; //server connection ondata
+    aSch: TConnectionEventLib; //server connection onhandshake
+    aScr: TConnectionEventLib; //server connection onreaddata
+    aScs: TConnectionEventLib; //server connection onsenddata
+    aSci: TConnectionDataLib //server connection info
+  ); stdcall;
+
+
+  {:library close function}
+  TLibraryClose = procedure;
+
+
+  {:library function to broadcast data to all connections}
+  TServerBroadcast = function (aIndex: integer; aData: pChar): boolean; stdcall;
+  {:library function to close server}
+  TServerClose = function(aIndex: integer): boolean; stdcall;
+  {:library function to create server}
+  TServerCreate = function(aBind: pChar; aPort: pChar; aMaxConnections: integer): integer; stdcall;
+  {:library function start server}
+  TStartServer = function (aIndex: integer): boolean; stdcall;
+
+
+  {:library function to close connection}
+  TServerConnectionClose = function(aIndex: integer): boolean; stdcall;
+  {:library function to close connection}
+  TServerConnectionInfo = function(aIndex: integer): boolean; stdcall;
+  {:library function to send data to connection}
+  TServerConnectionSendData = function(aIndex: integer; aData: pChar): boolean; stdcall;
+
+
+  {:library function to close connection}
+  TClientConnectionClose = function(aIndex: integer): boolean; stdcall;
+  {:library function to close connection}
+  TClientConnectionInfo = function(aIndex: integer): boolean; stdcall;
+  {:library function to open connection}
+  TClientConnectionOpen = function(aOrigin, aHost, aPort, aResource, aProtocol: pChar; aWebSocketType: integer): integer; stdcall;
+  {:library function to send data to connection}
+  TClientConnectionSendData = function(aIndex: integer; aData: pChar): boolean; stdcall;
+
+}}}
