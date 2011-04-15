@@ -271,3 +271,23 @@ Fields are:
   <dt>websockettype</dt><dd>WebSocket type</dd>
   <dt>server</dt><dd>Server index (only in server connection)</dd>
 </dl>
+
+=Exported functions=
+  * LibraryClose: TLibraryClose
+  * LibraryInitClient: TLibraryInitClient
+  * LibraryInitServer: TLibraryInitServer
+  * ServerBroadcast: TServerBroadcast
+  * ServerClose: TServerClose
+  * ServerCreate: TServerCreate
+  * ServerStart: TStartServer
+  * ServerConnectionClose: TServerConnectionClose
+  * ServerConnectionInformations: TServerConnectionInfo
+  * ServerConnectionSendData: TServerConnectionSendData
+  * ClientConnectionClose: TClientConnectionClose
+  * ClientConnectionInformations: TClientConnectionInfo
+  * ClientConnectionOpen: TClientConnectionOpen
+  * ClientConnectionSendData: TClientConnectionSendData
+
+Function type represents function interface (parameters)
+
+
