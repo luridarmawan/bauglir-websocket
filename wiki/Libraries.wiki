@@ -92,7 +92,20 @@ Every object has it's own index. The index is incrementing globally = the object
 
   ); stdcall;
 
-  {:library server intialize function with callbacks}
+  {:Function to initialize library for establishing server and receiving server connections
+    @param TServerAfterAddConnectionLib aSaac See callback type description
+    @param TServerBeforeAddConnectionLib aSbac See callback type description
+    @param TServerAfterRemoveConnectionLib aSarc See callback type description
+    @param TServerBeforeRemoveConnectionLibaSbrc See callback type description
+    @param TServerSocketErrorLib aSse See callback type description
+
+
+    @param TConnectionDataLib aScd Callback triggered after connection receive data
+    @param TConnectionEventLib aSch Callback triggered after successful handshake (connection accepted by server)
+    @param TConnectionEventLib aScr Callback triggered when connection is receiving data
+    @param TConnectionEventLib aScs Callback triggered when connection is sending data
+    @param TConnectionDataLib aSci Callback triggered when connection information are requested (see below)
+  }
   TLibraryInitServer = procedure(
     aSaac: TServerAfterAddConnectionLib;
     aSbac: TServerBeforeAddConnectionLib;
@@ -107,37 +120,93 @@ Every object has it's own index. The index is incrementing globally = the object
     aSci: TConnectionDataLib //server connection info
   ); stdcall;
 
-
   {:library close function}
   TLibraryClose = procedure;
 
 
-  {:library function to broadcast data to all connections}
+
+  {:library function to broadcast data to all server connections
+    @param integer aIndex Server index
+    @param pChar aData Data to be sent
+    @return bool True if server exists
+  }
   TServerBroadcast = function (aIndex: integer; aData: pChar): boolean; stdcall;
-  {:library function to close server}
+
+  {:library function to stop and destroy server
+    @param integer aIndex Server index
+    @return bool True if server exists
+  }
   TServerClose = function(aIndex: integer): boolean; stdcall;
-  {:library function to create server}
+
+  {:library function to create server
+    @param pChar aBind IP address server should be listening on (use 0.0.0.0 to listen on default IP address)
+    @param pChar aPort Port server should be listening on
+    @param integer aMaxConnections Maximum number of simultaneously opened connection 
+      (default value is -1 = unlimited number)
+    @return integer Server index
+  }
   TServerCreate = function(aBind: pChar; aPort: pChar; aMaxConnections: integer): integer; stdcall;
-  {:library function start server}
+
+  {:library function start server
+    @param integer aIndex Server index
+    @return bool True if server exists
+  }
   TStartServer = function (aIndex: integer): boolean; stdcall;
 
 
-  {:library function to close connection}
+
+  {:library function to close server connection
+    @param integer aIndex Connection index
+    @return bool True if connection exists
+  }
   TServerConnectionClose = function(aIndex: integer): boolean; stdcall;
-  {:library function to close connection}
+
+  {:library function to get server connection information (see below)
+    @param integer aIndex Connection index
+    @return bool True if connection exists
+  }
   TServerConnectionInfo = function(aIndex: integer): boolean; stdcall;
-  {:library function to send data to connection}
+
+  {:library function to send data via server connection
+    @param integer aIndex Connection index
+    @param pChar aIndex aData data to be sent
+    @return bool True if connection exists
+  }
   TServerConnectionSendData = function(aIndex: integer; aData: pChar): boolean; stdcall;
 
 
-  {:library function to close connection}
+
+  {:library function to close client connection
+    @param integer aIndex Connection index
+    @return bool True if connection exists
+  }
   TClientConnectionClose = function(aIndex: integer): boolean; stdcall;
-  {:library function to close connection}
+
+  {:library function to get client connection information (see below)
+    @param integer aIndex Connection index
+    @return bool True if connection exists
+  }
   TClientConnectionInfo = function(aIndex: integer): boolean; stdcall;
-  {:library function to open connection}
+
+  {:library function to open connection to server
+    @param pChar aOrigin String identifying client (IP, URL, etc.)
+    @param pChar aHost Host (server) to connect to (IP, domain name)
+    @param pChar aPort Server port to connect to
+    @param pChar aResource Requested resource 
+      (as URL path, e.g. /dir/file.ext, use / for direct connection. Parameter has no particular meaning, 
+       server must be programmed to understand what to do with requested resource)
+    @param pChar aProtocol See WebSocket specification (pass empty if no protocol requested)
+    @param integer aWebSocketType WebSocket type, see below
+    @return integer Connection index
+  }
   TClientConnectionOpen = function(aOrigin, aHost, aPort, aResource, aProtocol: pChar; 
      aWebSocketType: integer): integer; stdcall;
-  {:library function to send data to connection}
+
+  {:library function to send data via server connection
+    @param integer aIndex Connection index
+    @param pChar aIndex aData data to be sent
+    @return bool True if connection exists
+  }
   TClientConnectionSendData = function(aIndex: integer; aData: pChar): boolean; stdcall;
 
 }}}
