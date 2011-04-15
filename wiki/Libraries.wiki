@@ -210,3 +210,19 @@ Every object has it's own index. The index is incrementing globally = the object
   TClientConnectionSendData = function(aIndex: integer; aData: pChar): boolean; stdcall;
 
 }}}
+
+=WebSocket types=
+Library supports 2 types of WebSockets types (specifications).
+  * [http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-75 Hixie 75]
+  * [http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-76 Hixie 76]
+Server can accept both. When establishing client connection, type is passed as parameter.
+
+  * Hixie 75 is represented as *wsHixie75* string or *1* as integer
+  * Hixie 76 is represented as *wsHixie76* string or *2* as integer
+
+=Connection information=
+
+==Getting information==
+To get information about connection, you should pass callback to initialization function and then, when you want to actually get those information, call library exported function for getting those information. Data will be passed back to you via initialization callback.
+
+==Information data==
