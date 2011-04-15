@@ -213,7 +213,7 @@ Every object has it's own index. The index is incrementing globally = the object
 
 }}}
 
-=WebSocket types=
+=!WebSocket types=
 Library supports 2 types of WebSocket types (specifications).
   * [http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-75 Hixie 75]
   * [http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-76 Hixie 76]
