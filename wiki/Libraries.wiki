@@ -71,15 +71,24 @@ Every object has it's own index. The index is incrementing globally = the object
 
 
 
-  {:library client intialize function with callbacks}
+  {:Function to initialize library for establishing client connections
+    @param TConnectionEventLib aCcc Callback triggered after connection is connected to server 
+      (but such connection can be refused, event represents only regular socket connection)
+    @param TConnectionDataLib aCcd Callback triggered after connection receive data
+    @param TConnectionEventLib aCcx Callback triggered after connection is disconnected from server
+    @param TConnectionEventLib aCch Callback triggered after successful handshake (connection accepted by server)
+    @param TConnectionEventLib aCcr Callback triggered when connection is receiving data
+    @param TConnectionEventLib aCcs Callback triggered when connection is sending data
+    @param TConnectionDataLib aCci Callback triggered when connection information are requested (see below)
+  }
   TLibraryInitClient = procedure(
-    aCcc: TConnectionEventLib; //client connection onconnect
-    aCcd: TConnectionDataLib; //client connection ondata
-    aCcx: TConnectionEventLib; //client connection ondisconnect
-    aCch: TConnectionEventLib; //client connection onhandshake
-    aCcr: TConnectionEventLib; //client connection onreaddata
-    aCcs: TConnectionEventLib; //client connection onsenddata
-    aCci: TConnectionDataLib //client connection info
+    aCcc: TConnectionEventLib;
+    aCcd: TConnectionDataLib; 
+    aCcx: TConnectionEventLib;
+    aCch: TConnectionEventLib;
+    aCcr: TConnectionEventLib;
+    aCcs: TConnectionEventLib;
+    aCci: TConnectionDataLib 
 
   ); stdcall;
 
