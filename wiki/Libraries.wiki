@@ -1,5 +1,7 @@
 #summary Library interface description
 
+<wiki:toc max_depth="3" />
+
 = Introduction =
 Project contains compiled libraries (in demos projects for Windows and Linux)
 
@@ -212,7 +214,7 @@ Every object has it's own index. The index is incrementing globally = the object
 }}}
 
 =WebSocket types=
-Library supports 2 types of WebSockets types (specifications).
+Library supports 2 types of WebSocket types (specifications).
   * [http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-75 Hixie 75]
   * [http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-76 Hixie 76]
 Server can accept both. When establishing client connection, type is passed as parameter.
@@ -226,3 +228,70 @@ Server can accept both. When establishing client connection, type is passed as p
 To get information about connection, you should pass callback to initialization function and then, when you want to actually get those information, call library exported function for getting those information. Data will be passed back to you via initialization callback.
 
 ==Information data==
+Data are returned via callback as string. This string contain lines (separated by CRLF) with actual data
+
+===Examples ===
+{{{
+SERVER CONNECTION INFORMATION STRING:
+handshake=true
+host=10.0.0.1
+index=1
+location=ws://10.0.0.1:10001/
+origin=clientlibdemo
+port=10001
+protocol=
+resource=/
+websockettype=wshixie76
+server=0
+
+CLIENT CONNECTION INFORMATION STRING:
+handshake=true
+host=10.0.0.1
+index=0
+location=ws://10.0.0.1:10001/
+origin=clientlibdemo
+port=10001
+protocol=
+resource=/
+websockettype=wshixie76
+}}}
+
+Each line contains field name, equal sign and field value.
+
+Fields are:
+<dl>
+  <dt>handshake</dt><dd>whether handshake was successfull</dd>
+  <dt>host</dt><dd>whether handshake was successfull</dd>
+</dl>
+
+          'handshake=' + LowerCase(GetEnumName(TypeInfo(boolean), ord(sc.Handshake))) + #13#10 +
+          'host=' + sc.Host + #13#10 +
+          'index=' + IntToStr(sc.Index) + #13#10 +
+          'location=' + sc.Location + #13#10 +
+          'origin=' + sc.Origin + #13#10 +
+          'port=' + sc.Port + #13#10 +
+          'protocol=' + sc.Protocol + #13#10 +
+          'resource=' + sc.Resource + #13#10 +
+          'websockettype=' + LowerCase(GetEnumName(TypeInfo(TWebSocketType), ord(sc.WebSocketType))) + #13#10 +
+          'server=' + IntToStr(sc.Parent.Index) + #13#10 +
+
+
+
+host=10.0.0.1
+index=0
+location=ws://10.0.0.1:10001/
+origin=clientlibdemo
+port=10001
+protocol=
+resource=/
+websockettype=wshixie76
+
+          'handshake=' + LowerCase(GetEnumName(TypeInfo(boolean), ord(sc.Handshake))) + #13#10 +
+          'host=' + sc.Host + #13#10 +
+          'index=' + IntToStr(sc.Index) + #13#10 +
+          'location=' + sc.Location + #13#10 +
+          'origin=' + sc.Origin + #13#10 +
+          'port=' + sc.Port + #13#10 +
+          'protocol=' + sc.Protocol + #13#10 +
+          'resource=' + sc.Resource + #13#10 +
+          'websockettype=' + LowerCase(GetEnumName(TypeInfo(TWebSocketType), ord(sc.WebSocketType))) + #13#10 +
