@@ -1,8 +1,8 @@
-#summary Library interface description for version 1.1.0 and above
+#summary Library interface description
 
 <wiki:toc max_depth="3" />
 
-For previous versions see http://code.google.com/p/bauglir-websocket/wiki/Libraries_1_0_1.
+Documentation of version 1.1.0 and above. For previous versions see http://code.google.com/p/bauglir-websocket/wiki/Libraries_1_0_1.
 
 = Introduction =
 Project contains compiled libraries (in demos projects for Windows and Linux)
