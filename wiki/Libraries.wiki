@@ -1,6 +1,8 @@
-#summary Library interface description
+#summary Library interface description for version 1.1.0 and above
 
 <wiki:toc max_depth="3" />
+
+For previous versions see http://code.google.com/p/bauglir-websocket/wiki/Libraries_1_0_1.
 
 = Introduction =
 Project contains compiled libraries (in demos projects for Windows and Linux)
@@ -145,9 +147,15 @@ Every object has it's own index. The index is incrementing globally = the object
     @param pChar aPort Port server should be listening on
     @param integer aMaxConnections Maximum number of simultaneously opened connection 
       (default value is -1 = unlimited number)
+    @param bool aAutoUTF Whether incoming text data should be converted from UTF-8 to local desktop settings and
+      outgoing data converted from local desktop settings to UTF-8 automatically
+    @param bool aSSL Whether to start server with SSL 
+    @param pChar aSSLCert Path to file with SSL certification (*.crt)
+    @param pChar aSSLKey Path to file with SSL key (*.key)
     @return integer Server index
   }
-  TServerCreate = function(aBind: pChar; aPort: pChar; aMaxConnections: integer): integer; stdcall;
+  TServerCreate = function(aBind: pChar; aPort: pChar; aMaxConnections: integer;
+     aAutoUTF: boolean; aSSL: boolean; aSSLCert, aSSLKey: pChar): integer; stdcall;
 
   {:library function start server
     @param integer aIndex Server index
@@ -199,10 +207,13 @@ Every object has it's own index. The index is incrementing globally = the object
        server must be programmed to understand what to do with requested resource)
     @param pChar aProtocol See WebSocket specification (pass empty if no protocol requested)
     @param integer aWebSocketType WebSocket type, see below
+    @param bool aAutoUTF Whether incoming text data should be converted from UTF-8 to local desktop settings and
+      outgoing data converted from local desktop settings to UTF-8 automatically
+    @param bool aSSL Whether to connect to server using SSL
     @return integer Connection index
   }
   TClientConnectionOpen = function(aOrigin, aHost, aPort, aResource, aProtocol: pChar; 
-     aWebSocketType: integer): integer; stdcall;
+     aWebSocketType: integer; aAutoUTF: boolean; aSSL: boolean): integer; stdcall;
 
   {:library function to send data via server connection
     @param integer aIndex Connection index
