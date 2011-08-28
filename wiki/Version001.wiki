@@ -1,4 +1,4 @@
-This is project introdustion page for 1st version of Bauglir WebSocket
+#summary This is project introduction page for 1st version of Bauglir WebSocket
 
 
   * last release: 2011-04-24
