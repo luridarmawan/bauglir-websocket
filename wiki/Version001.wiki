@@ -13,7 +13,7 @@ Check [http://www.webnt.eu WebNt.eu WebSocket] pages with full documentation.
 ==Binaries==
 Implementation and compiled binaries for usage are in Delphi (websocketlib.dll) and Lazarus (websocketlib.so) demos.
 
-There is Wiki page with [http://code.google.com/p/bauglir-websocket/wiki/Libraries interface description]
+There is Wiki page with [http://code.google.com/p/bauglir-websocket/wiki/Libraries_1_1_0 interface description]
 
 ==Demos==
   * Pascal (Lazarus and Delphi) client and server demos 
