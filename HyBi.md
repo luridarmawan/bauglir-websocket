@@ -1,0 +1,1 @@
+see HyBi specification: http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-10
